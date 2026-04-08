@@ -21,7 +21,14 @@ SECRET_KEY = os.environ.get(
 
 DEBUG = os.environ.get("DJANGO_DEBUG", "1") == "1"
 
-ALLOWED_HOSTS = os.environ.get("DJANGO_ALLOWED_HOSTS", "127.0.0.1,localhost").split(",")
+ALLOWED_HOSTS = [
+    h.strip()
+    for h in os.environ.get("DJANGO_ALLOWED_HOSTS", "127.0.0.1,localhost").split(",")
+    if h.strip()
+]
+# Railway app URLs are *.up.railway.app — leading dot matches all subdomains (Django docs).
+if ".up.railway.app" not in ALLOWED_HOSTS:
+    ALLOWED_HOSTS.append(".up.railway.app")
 
 INSTALLED_APPS = [
     "django.contrib.admin",
