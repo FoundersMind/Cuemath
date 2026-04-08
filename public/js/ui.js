@@ -1,5 +1,6 @@
 import { el } from "./dom.js";
 import { state } from "./state.js";
+import { setInterviewGuardsActive } from "./interview-guards.js";
 
 const AVATAR_LABELS = {
   idle: "Take your time — mic opens shortly after I finish.",
@@ -15,6 +16,7 @@ export function showScreen(name) {
   });
   document.body.classList.toggle("is-interview", name === "Interview");
   document.body.classList.toggle("is-results", false);
+  setInterviewGuardsActive(name === "Interview");
   // UX: ensure new screen starts at top (especially on laptop).
   try {
     window.scrollTo({ top: 0, behavior: "smooth" });

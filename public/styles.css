@@ -46,6 +46,25 @@ body.is-interview {
   overflow: hidden;
 }
 
+/* Interview: discourage selecting / dragging question & transcript (guards + JS as well). */
+body.is-interview #screenInterview,
+body.is-interview #screenInterview * {
+  -webkit-user-select: none;
+  user-select: none;
+  -webkit-touch-callout: none;
+}
+
+body.is-interview #screenInterview input,
+body.is-interview #screenInterview textarea {
+  -webkit-user-select: text;
+  user-select: text;
+}
+
+body.is-interview #screenInterview ::selection {
+  background: transparent;
+  color: inherit;
+}
+
 body.is-results {
   height: 100vh;
   height: 100dvh;

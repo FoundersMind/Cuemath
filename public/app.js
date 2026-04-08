@@ -234,23 +234,6 @@ if (log) {
   mo3.observe(log, { childList: true, subtree: true });
 }
 
-el("btnCopyTranscript")?.addEventListener("click", async () => {
-  try {
-    const lines = (state.messages || [])
-      .filter((m) => m?.role === "user" || m?.role === "assistant")
-      .map((m) => `${m.role === "assistant" ? "Interviewer" : "You"}: ${String(m.content || "").trim()}`)
-      .filter((s) => s.length > 0);
-    const text = lines.join("\n\n") || "No transcript yet.";
-    await navigator.clipboard.writeText(text);
-    toast("Transcript copied to clipboard.", { kind: "success", title: "Copied" });
-  } catch {
-    toast("Could not copy. Try selecting the conversation and copying manually.", {
-      kind: "warning",
-      title: "Copy failed",
-    });
-  }
-});
-
 // Keyboard shortcut: Space to toggle recording (when not typing).
 window.addEventListener("keydown", (ev) => {
   if (ev.code !== "Space") return;
