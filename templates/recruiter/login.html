@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% block title %}Recruiter login{% endblock %}
+{% block nav_title %}Recruiter sign in{% endblock %}
+{% block content %}
+  <div class="row justify-content-center">
+    <div class="col-md-5">
+      <div class="card shadow-sm">
+        <div class="card-body p-4">
+          <h1 class="h5 mb-3">Staff access</h1>
+          <p class="small text-secondary">Use a Django account with <strong>staff</strong> checked (create with <code>createsuperuser</code>).</p>
+          {% if form.errors %}
+            <div class="alert alert-danger small">Invalid username or password.</div>
+          {% endif %}
+          <form method="post" action="">
+            {% csrf_token %}
+            <div class="mb-3">
+              <label class="form-label" for="id_username">Username</label>
+              <input
+                type="text"
+                name="username"
+                id="id_username"
+                class="form-control"
+                autofocus
+                required
+                autocomplete="username"
+              />
+            </div>
+            <div class="mb-3">
+              <label class="form-label" for="id_password">Password</label>
+              <input
+                type="password"
+                name="password"
+                id="id_password"
+                class="form-control"
+                required
+                autocomplete="current-password"
+              />
+            </div>
+            <button type="submit" class="btn btn-primary w-100">Sign in</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}

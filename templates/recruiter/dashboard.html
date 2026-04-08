@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% block title %}Sessions · Recruiter{% endblock %}
+{% block nav_title %}Screening sessions{% endblock %}
+{% block content %}
+  <p class="text-secondary">Recent voice screenings (stored with consent timestamp and retention date).</p>
+  <div class="table-responsive shadow-sm rounded bg-white">
+    <table class="table table-hover mb-0 align-middle">
+      <thead class="table-light">
+        <tr>
+          <th>Session</th>
+          <th>Status</th>
+          <th>Email</th>
+          <th>Consent (UTC)</th>
+          <th>Retention until</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for s in sessions %}
+          <tr>
+            <td>
+              <a href="{% url 'recruiter_session_detail' s.id %}">{{ s.id }}</a>
+            </td>
+            <td><span class="badge text-bg-secondary">{{ s.status }}</span></td>
+            <td>{{ s.candidate_email|default:"—" }}</td>
+            <td class="small">{{ s.consent_at|date:"Y-m-d H:i" }}</td>
+            <td class="small">{{ s.retention_until|date:"Y-m-d"|default:"—" }}</td>
+          </tr>
+        {% empty %}
+          <tr>
+            <td colspan="5" class="text-muted py-4 text-center">No sessions yet.</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+{% endblock %}

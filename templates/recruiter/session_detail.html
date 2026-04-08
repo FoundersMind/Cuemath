@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+{% block title %}Session {{ session.id }}{% endblock %}
+{% block nav_title %}Session detail{% endblock %}
+{% block content %}
+  <p>
+    <a href="{% url 'recruiter_dashboard' %}" class="text-decoration-none">← All sessions</a>
+  </p>
+  <div class="row g-3">
+    <div class="col-lg-5">
+      <div class="card shadow-sm h-100">
+        <div class="card-body">
+          <h2 class="h6 text-uppercase text-muted">Metadata</h2>
+          <dl class="row small mb-0">
+            <dt class="col-sm-5">ID</dt>
+            <dd class="col-sm-7 text-break">{{ session.id }}</dd>
+            <dt class="col-sm-5">Status</dt>
+            <dd class="col-sm-7">{{ session.status }}</dd>
+            <dt class="col-sm-5">Policy</dt>
+            <dd class="col-sm-7">{{ session.consent_policy_version }}</dd>
+            <dt class="col-sm-5">Consent at</dt>
+            <dd class="col-sm-7">{{ session.consent_at|date:"c" }}</dd>
+            <dt class="col-sm-5">Retention</dt>
+            <dd class="col-sm-7">{{ session.retention_until|date:"c"|default:"—" }}</dd>
+            <dt class="col-sm-5">Name</dt>
+            <dd class="col-sm-7">{{ session.candidate_name|default:"—" }}</dd>
+            <dt class="col-sm-5">Email</dt>
+            <dd class="col-sm-7">{{ session.candidate_email|default:"—" }}</dd>
+            <dt class="col-sm-5">Model</dt>
+            <dd class="col-sm-7">{{ session.openai_model|default:"—" }}</dd>
+            <dt class="col-sm-5">Closure reason</dt>
+            <dd class="col-sm-7">{{ session.closure_reason|default:"—" }}</dd>
+          </dl>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-7">
+      <div class="card shadow-sm h-100">
+        <div class="card-body">
+          <h2 class="h6 text-uppercase text-muted">Transcript</h2>
+          <pre class="small bg-body-tertiary p-3 rounded border mb-0" style="max-height: 20rem; overflow: auto">{{ transcript }}</pre>
+        </div>
+      </div>
+    </div>
+  </div>
+  {% if assessment %}
+    <div class="card shadow-sm mt-3">
+      <div class="card-body">
+        <h2 class="h6 text-uppercase text-muted">Assessment (JSON)</h2>
+        <pre class="small bg-body-tertiary p-3 rounded border mb-0" style="max-height: 28rem; overflow: auto">{{ assessment_json }}</pre>
+      </div>
+    </div>
+  {% else %}
+    <p class="text-muted mt-3">No assessment stored yet for this session.</p>
+  {% endif %}
+{% endblock %}
